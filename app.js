@@ -16,10 +16,12 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res, next) => {
-  res.send(layout(" "));
+  res.redirect("/wiki");
+  //res.send(layout(" "));
 });
 
 const sync = async () => {
+  const userTable = await User.create({ name: "Sam", email: "Sam@email.com" });
   await db.sync({ force: true });
   await Page.sync();
   await User.sync();
